@@ -1,0 +1,21 @@
+# Secrets
+.env
+*.key
+data/secret.key
+
+# Runtime / private data (donor PII, requests, logs)
+data/*.json
+uploads/*
+!data/.gitkeep
+!uploads/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

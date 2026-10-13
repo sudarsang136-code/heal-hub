@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heal Hub - Emergency Blood Donation & Admin Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/" class="brand">
+        <div class="brand-icon">🩸</div>
+        <div>
+          <div class="brand-title">HEAL <span>HUB</span></div>
+          <div style="font-size: 0.7rem; color: var(--text-secondary); margin-top: -2px;">Emergency Blood Procurement & Donor Dispatch System</div>
+        </div>
+      </a>
+
+      <!-- Main Navigation Tabs -->
+      <nav class="nav-tabs">
+        <button class="tab-btn active" data-tab="tab-hospital">
+          🏥 Hospital Portal
+        </button>
+        <button class="tab-btn" data-tab="tab-donors">
+          🩸 Donor Portal
+        </button>
+        <button class="tab-btn" data-tab="tab-admin">
+          🔒 Admin Control
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="main-content">
+
+    <!-- ==================== TAB 1: HOSPITAL PORTAL ==================== -->
+    <section id="tab-hospital" class="tab-panel active">
+      <div class="grid-2">
+        <!-- Hospital Request Submission Form -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🏥 Create Emergency Blood Request</div>
+              <div class="card-subtitle">Hospital submits urgent requirement for automated matching</div>
+            </div>
+            <span class="badge badge-emergency">EMERGENCY DISPATCH</span>
+          </div>
+
+          <!-- Quick Hospital Presets -->
+          <div id="hospital-presets-bar" class="preset-bar"></div>
+
+          <form id="blood-request-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="req-hospital-name">Hospital Name *</label>
+                <input type="text" id="req-hospital-name" class="form-control" value="Bangalore Central Emergency Hospital" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="req-hospital-id">Hospital ID</label>
+                <input type="text" id="req-hospital-id" class="form-control" value="HOSP-BLR-01" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="req-address">Hospital Address</label>
+              <input type="text" id="req-address" class="form-control" value="Residency Road, Ashok Nagar, Bengaluru" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="req-lat">Latitude (Auto / GPS)</label>
+                <input type="number" step="0.0001" id="req-lat" class="form-control" value="12.9716" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="req-lon">Longitude (Auto / GPS)</label>
+                <input type="number" step="0.0001" id="req-lon" class="form-control" value="77.5946" required>
+              </div>
+            </div>
+
+            <!-- Blood Group Required -->
+            <div class="form-group">
+              <label class="form-label">Blood Group Required *</label>
+              <div class="blood-selector">
+                <label>
+                  <input type="radio" name="blood_group" value="A+" class="blood-radio">
+                  <div class="blood-pill">A+</div>
+                </label>
+                <label>
+                  <input type="radio" name="blood_group" value="A-" class="blood-radio">
+                  <div class="blood-pill">A-</div>
+                </label>
+                <label>
+                  <input type="radio" name="blood_group" value="B+" class="blood-radio" checked>
+                  <div class="blood-pill">B+</div>
+                </label>
+                <label>
+                  <input type="radio" name="blood_group" value="B-" class="blood-radio">
+                  <div class="blood-pill">B-</div>
+                </label>
+                <label>
+                  <input type="radio" name="blood_group" value="AB+" class="blood-radio">
+                  <div class="blood-pill">AB+</div>
+                </label>
+                <label>
+                  <input type="radio" name="blood_group" value="AB-" class="blood-radio">
+                  <div class="blood-pill">AB-</div>
+                </label>
+                <label>
+                  <input type="radio" name="blood_group" value="O+" class="blood-radio">
+                  <div class="blood-pill">O+</div>
+                </label>
+                <label>
+                  <input type="radio" name="blood_group" value="O-" class="blood-radio">
+                  <div class="blood-pill">O-</div>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="req-units">Units Required *</label>
+                <input type="number" id="req-units" class="form-control" min="1" max="10" value="2" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Urgency Level *</label>
+                <div class="urgency-selector">
+                  <label>
+                    <input type="radio" name="urgency" value="Emergency" class="urgency-radio" checked>
+                    <div class="urgency-pill emergency">Emergency</div>
+                  </label>
+                  <label>
+                    <input type="radio" name="urgency" value="Urgent" class="urgency-radio">
+                    <div class="urgency-pill urgent">Urgent</div>
+                  </label>
+                  <label>
+                    <input type="radio" name="urgency" value="Normal" class="urgency-radio">
+                    <div class="urgency-pill normal">Normal</div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="req-required-by">Required By (Date & Time) *</label>
+                <input type="datetime-local" id="req-required-by" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="req-reason">Reason / Medical Condition *</label>
+                <input type="text" id="req-reason" class="form-control" value="Emergency surgery, accident trauma" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="req-contact-name">Hospital Contact Person *</label>
+                <input type="text" id="req-contact-name" class="form-control" value="Dr. Arvind Rao (Head of Blood Bank)" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="req-contact-phone">Contact Phone Number *</label>
+                <input type="text" id="req-contact-phone" class="form-control" value="+91 80 2299 1100" required>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 0.5rem;">
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; cursor: pointer;">
+                <input type="checkbox" id="req-authorized" checked required>
+                <span><strong>Request Authorization:</strong> I confirm that this blood requirement is genuine and authorized.</span>
+              </label>
+            </div>
+
+            <button type="submit" id="btn-submit-request" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+              🚨 Submit Emergency Blood Request
+            </button>
+          </form>
+        </div>
+
+        <!-- Right Side: CONFIRMED / ACCEPTED DONOR IDS (HOSPITAL FEED) -->
+        <div>
+          <div class="card" style="border: 1px solid rgba(16, 185, 129, 0.4); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.1);">
+            <div class="card-header">
+              <div>
+                <div class="card-title" style="color: #34d399;">🎯 Confirmed & Accepted Donors</div>
+                <div class="card-subtitle">As soon as a donor clicks <strong>"Available"</strong> in their email, their <strong>Donor ID</strong> appears here for hospital reception.</div>
+              </div>
+              <button class="btn btn-sm btn-outline" onclick="loadHospitalAcceptedDonors(true)">🔄 Refresh</button>
+            </div>
+
+            <!-- Container rendered dynamically via app.js -->
+            <div id="hospital-accepted-donors-container">
+              <div style="text-align: center; color: var(--text-muted); padding: 3rem 1rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem; opacity: 0.6;">⏳</div>
+                <p>No active emergency request yet.</p>
+                <p style="font-size: 0.8rem;">Submit a blood request on the left. Contacted donors will receive an email and phone call alert.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: DONOR PORTAL & REGISTRATION ==================== -->
+    <section id="tab-donors" class="tab-panel">
+      <!-- Sub-tabs for Donors -->
+      <div style="display: flex; gap: 8px; margin-bottom: 1.5rem;">
+        <button id="btn-donor-reg-panel" class="btn btn-outline donor-subtab-btn active" onclick="switchDonorSubTab('donor-reg-panel')">
+          🩸 New Donor Registration
+        </button>
+        <button id="btn-donor-login-panel" class="btn btn-outline donor-subtab-btn" onclick="switchDonorSubTab('donor-login-panel')">
+          🔑 Donor Login & Update Profile
+        </button>
+      </div>
+
+      <!-- SUBTAB A: DONOR REGISTRATION -->
+      <div id="donor-reg-panel" class="donor-subtab-panel">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🩸 Secure Donor Registration</div>
+              <div class="card-subtitle">Sensitive PII is encrypted with AES/Fernet encryption. Separate database stores per blood group.</div>
+            </div>
+            <span class="badge badge-info">ENCRYPTED STORAGE</span>
+          </div>
+
+          <!-- Registration Success Card -->
+          <div id="donor-reg-success-card" style="display: none; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h3 style="color: #34d399; margin-bottom: 0.5rem;">🎉 Registration Successful!</h3>
+            <p style="font-size: 0.9rem; color: #f8fafc;">
+              Your secure Donor ID is: <strong id="success-donor-id" style="font-family: monospace; font-size: 1.25rem; color: #38bdf8; background: #0f172a; padding: 2px 8px; border-radius: 4px;"></strong>
+            </p>
+            <div style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-secondary);">
+              Donor Name: <strong id="success-donor-name"></strong> | Blood Group: <strong id="success-donor-bg"></strong> | Availability: <strong id="success-donor-avail"></strong>
+            </div>
+            <div id="success-ai-report"></div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.75rem;">
+              💡 Save your Donor ID! You can use your <strong>Donor ID + Date of Birth</strong> to log in and manage your availability at any time.
+            </p>
+          </div>
+
+          <form id="donor-reg-form" enctype="multipart/form-data">
+            <h4 style="font-size: 0.95rem; color: var(--accent-red); margin-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.4rem;">
+              1. Personal Information (Protected with AES Encryption)
+            </h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="reg-name">Full Name *</label>
+                <input type="text" name="name" id="reg-name" class="form-control" placeholder="e.g. Vikram Sharma" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reg-dob">Date of Birth * (Used as password for login)</label>
+                <input type="date" name="dob" id="reg-dob" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="reg-phone">Phone Number * (Encrypted at rest)</label>
+                <input type="tel" name="phone" id="reg-phone" class="form-control" placeholder="+91 98450 12345" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reg-email">Email Address * (Encrypted at rest)</label>
+                <input type="email" name="email" id="reg-email" class="form-control" placeholder="donor@example.com" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="reg-city">City / Area</label>
+                <input type="text" name="city" id="reg-city" class="form-control" value="Indiranagar, Bangalore">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Approximate Location Coordinates (Lat / Lon)</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="number" step="0.0001" name="latitude" id="reg-lat" class="form-control" value="12.9740" title="Latitude">
+                  <input type="number" step="0.0001" name="longitude" id="reg-lon" class="form-control" value="77.6010" title="Longitude">
+                </div>
+              </div>
+            </div>
+
+            <h4 style="font-size: 0.95rem; color: var(--accent-red); margin: 1.5rem 0 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.4rem;">
+              2. Medical & Donation Eligibility Questionnaire
+            </h4>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="reg-age">1. Age (Must be &ge; 18) *</label>
+                <input type="number" name="age" id="reg-age" class="form-control" min="18" max="65" value="28" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reg-gender">2. Gender * (Male: 90d cooldown | Female: 120d cooldown)</label>
+                <select name="gender" id="reg-gender" class="form-control" required>
+                  <option value="male">Male (Cooldown: 90 Days)</option>
+                  <option value="female">Female (Cooldown: 120 Days)</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="reg-bg">3. Blood Group * (Dedicated DB File)</label>
+                <select name="blood_group" id="reg-bg" class="form-control" required>
+                  <option value="B+" selected>B+ (donors_B_POS.json)</option>
+                  <option value="B-">B- (donors_B_NEG.json)</option>
+                  <option value="A+">A+ (donors_A_POS.json)</option>
+                  <option value="A-">A- (donors_A_NEG.json)</option>
+                  <option value="AB+">AB+ (donors_AB_POS.json)</option>
+                  <option value="AB-">AB- (donors_AB_NEG.json)</option>
+                  <option value="O+">O+ (donors_O_POS.json)</option>
+                  <option value="O-">O- (donors_O_NEG.json)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reg-weight">4. Weight in kg (Must be &ge; 50 kg) *</label>
+                <input type="number" step="0.5" name="weight" id="reg-weight" class="form-control" min="45" max="150" value="68.0" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">5. Have you donated blood before? *</label>
+                <div style="display: flex; gap: 1rem; margin-top: 0.4rem;">
+                  <label><input type="radio" name="donated_before" id="reg-donated-yes" value="true" checked> Yes</label>
+                  <label><input type="radio" name="donated_before" id="reg-donated-no" value="false"> No (First time donor)</label>
+                </div>
+              </div>
+              <div class="form-group" id="group-recent-date">
+                <label class="form-label" for="reg-recent-date">6. When was your most recent blood donation?</label>
+                <input type="date" name="recent_donation_date" id="reg-recent-date" class="form-control" value="2025-11-15">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">7. Have you been verified by a hospital or blood bank?</label>
+                <div style="display: flex; gap: 1rem; margin-top: 0.4rem;">
+                  <label><input type="radio" name="hospital_verified" value="true" checked> Yes</label>
+                  <label><input type="radio" name="hospital_verified" value="false"> No</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reg-doc">8. Upload previous donation card / certificate (AI Verification)</label>
+                <input type="file" name="donation_document" id="reg-doc" class="form-control" accept="image/*,.pdf">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">9. Willing to be contacted when emergency request is received?</label>
+                <div style="display: flex; gap: 1rem; margin-top: 0.4rem;">
+                  <label><input type="radio" name="willing_to_contact" value="true" checked> Yes</label>
+                  <label><input type="radio" name="willing_to_contact" value="false"> No</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">10. Willing to donate when contacted?</label>
+                <div style="display: flex; gap: 1rem; margin-top: 0.4rem;">
+                  <label><input type="radio" name="willing_to_donate" value="true" checked> Yes</label>
+                  <label><input type="radio" name="willing_to_donate" value="false"> No</label>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" id="btn-register-donor" class="btn btn-primary btn-block" style="margin-top: 1.5rem;">
+              🩸 Complete Registration & Generate Donor ID
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- SUBTAB B: DONOR LOGIN & PROFILE UPDATE -->
+      <div id="donor-login-panel" class="donor-subtab-panel" style="display: none;">
+        <!-- Login Card -->
+        <div class="card" id="donor-login-card" style="max-width: 500px; margin: 0 auto;">
+          <div class="card-header">
+            <div class="card-title">🔑 Donor Login</div>
+            <span class="badge badge-info">ID + DOB</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+            Log in using your unique <strong>Donor ID</strong> and your <strong>Date of Birth</strong> (as password) to manage your profile or toggle availability.
+          </p>
+          <form id="donor-login-form">
+            <div class="form-group">
+              <label class="form-label" for="login-donor-id">Donor ID</label>
+              <input type="text" id="login-donor-id" class="form-control" placeholder="e.g. DONOR-BPOS-4891" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="login-donor-dob">Date of Birth (Password)</label>
+              <input type="date" id="login-donor-dob" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+              🔐 Authenticate & Open Donor Dashboard
+            </button>
+          </form>
+        </div>
+
+        <!-- Authenticated Donor Dashboard -->
+        <div class="card" id="donor-dashboard-card" style="display: none; max-width: 800px; margin: 0 auto;">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🩸 Donor Portal: <span id="dash-name" style="color: #38bdf8;"></span></div>
+              <div style="font-size: 0.8rem; color: var(--text-secondary);">Donor ID: <strong id="dash-donor-id" style="font-family: monospace;"></strong></div>
+            </div>
+            <button class="btn btn-sm btn-outline" onclick="donorLogout()">🚪 Logout</button>
+          </div>
+
+          <!-- Cooldown Meter -->
+          <div class="cooldown-ring-container">
+            <div>
+              <div id="dash-cooldown-num" class="cooldown-num">0</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Days Cooldown</div>
+            </div>
+            <div>
+              <h4 id="dash-cooldown-msg" style="margin: 0 0 4px 0;"></h4>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 0;">
+                Minimum donation interval: <strong>Male (90 days)</strong> | <strong>Female (120 days)</strong>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Profile Details Grid -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; background: rgba(15, 23, 42, 0.4); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: 0.85rem;">
+            <div><span style="color: var(--text-secondary);">Blood Group:</span> <strong id="dash-bg" style="color: var(--accent-red); font-size: 1.1rem;"></strong></div>
+            <div><span style="color: var(--text-secondary);">Gender:</span> <strong id="dash-gender"></strong></div>
+            <div><span style="color: var(--text-secondary);">Weight:</span> <strong id="dash-weight"></strong></div>
+            <div><span style="color: var(--text-secondary);">Phone (Decrypted):</span> <strong id="dash-phone"></strong></div>
+            <div><span style="color: var(--text-secondary);">Email (Decrypted):</span> <strong id="dash-email"></strong></div>
+            <div><span style="color: var(--text-secondary);">Last Donation:</span> <strong id="dash-recent-date"></strong></div>
+          </div>
+
+          <!-- Availability Toggle -->
+          <div style="background: rgba(15, 23, 42, 0.6); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <strong>Quick Availability Toggle:</strong>
+              <div style="font-size: 0.8rem; color: var(--text-secondary);">Toggle whether you can be called for emergency donations right now.</div>
+            </div>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="dash-toggle-avail" onchange="toggleDonorAvailability()" style="width: 20px; height: 20px;">
+              <span style="font-weight: bold;">I am Available</span>
+            </label>
+          </div>
+
+          <!-- Comprehensive Donor Update Profile Form -->
+          <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.75rem;">
+              <div>
+                <h4 style="margin: 0; font-size: 1.05rem; color: #38bdf8; display: flex; align-items: center; gap: 8px;">
+                  ✏️ Update All Your Registered Details
+                </h4>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">
+                  You can update any information you entered when registering. Sensitive data is re-encrypted automatically.
+                </div>
+              </div>
+              <span class="badge badge-info">Edit Profile</span>
+            </div>
+
+            <form id="donor-update-profile-form">
+              <h5 style="font-size: 0.85rem; color: var(--accent-red); margin: 0.5rem 0 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                1. Personal Information
+              </h5>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="edit-donor-name">Full Name *</label>
+                  <input type="text" id="edit-donor-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="edit-donor-dob">Date of Birth (Login Password) *</label>
+                  <input type="date" id="edit-donor-dob" class="form-control" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="edit-donor-phone">Phone Number *</label>
+                  <input type="tel" id="edit-donor-phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="edit-donor-email">Email Address *</label>
+                  <input type="email" id="edit-donor-email" class="form-control" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="edit-donor-city">City / Area</label>
+                  <input type="text" id="edit-donor-city" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Location Coordinates (Lat / Lon)</label>
+                  <div style="display: flex; gap: 8px;">
+                    <input type="number" step="0.0001" id="edit-donor-lat" class="form-control" placeholder="Lat">
+                    <input type="number" step="0.0001" id="edit-donor-lon" class="form-control" placeholder="Lon">
+                  </div>
+                </div>
+              </div>
+
+              <h5 style="font-size: 0.85rem; color: var(--accent-red); margin: 1.25rem 0 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                2. Medical & Donation Eligibility Questionnaire
+              </h5>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="edit-donor-bg">Blood Group *</label>
+                  <select id="edit-donor-bg" class="form-control" required>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="edit-donor-age">Age (&ge; 18) *</label>
+                  <input type="number" id="edit-donor-age" class="form-control" min="18" max="65" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="edit-donor-gender">Gender *</label>
+                  <select id="edit-donor-gender" class="form-control" required>
+                    <option value="male">Male (90 Days recovery interval)</option>
+                    <option value="female">Female (120 Days recovery interval)</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="edit-donor-weight">Weight in kg (&ge; 50 kg) *</label>
+                  <input type="number" step="0.5" id="edit-donor-weight" class="form-control" min="45" max="150" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Have you donated blood before?</label>
+                  <div style="display: flex; gap: 1rem; margin-top: 0.4rem;">
+                    <label><input type="radio" name="edit_donated_before" id="edit-donor-donated-yes" value="true"> Yes</label>
+                    <label><input type="radio" name="edit_donated_before" id="edit-donor-donated-no" value="false"> No</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="edit-donor-recent-date">When was your most recent blood donation?</label>
+                  <input type="date" id="edit-donor-recent-date" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Verified by hospital or blood bank?</label>
+                  <div style="display: flex; gap: 1rem; margin-top: 0.4rem;">
+                    <label><input type="radio" name="edit_hospital_verified" id="edit-donor-verified-yes" value="true"> Yes</label>
+                    <label><input type="radio" name="edit_hospital_verified" id="edit-donor-verified-no" value="false"> No</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Willing to be contacted when emergency request is received?</label>
+                  <div style="display: flex; gap: 1rem; margin-top: 0.4rem;">
+                    <label><input type="radio" name="edit_willing_to_contact" id="edit-donor-contact-yes" value="true"> Yes</label>
+                    <label><input type="radio" name="edit_willing_to_contact" id="edit-donor-contact-no" value="false"> No</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Willing to donate when contacted?</label>
+                  <div style="display: flex; gap: 1rem; margin-top: 0.4rem;">
+                    <label><input type="radio" name="edit_willing_to_donate" id="edit-donor-donate-yes" value="true"> Yes</label>
+                    <label><input type="radio" name="edit_willing_to_donate" id="edit-donor-donate-no" value="false"> No</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Availability Status</label>
+                  <div style="margin-top: 0.4rem;">
+                    <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer;">
+                      <input type="checkbox" id="edit-donor-avail" style="width: 18px; height: 18px;">
+                      <span>Available for Emergency Requests</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-top: 0.5rem;">
+                <label class="form-label" for="edit-donor-notes">Additional Medical Remarks / Notes</label>
+                <input type="text" id="edit-donor-notes" class="form-control" placeholder="Any medical history or specific notes">
+              </div>
+
+              <div id="donor-update-status" style="display: none; padding: 10px; border-radius: 6px; margin: 10px 0; font-size: 0.85rem;"></div>
+
+              <button type="submit" id="btn-save-donor-update" class="btn btn-primary btn-block" style="margin-top: 1.25rem;">
+                💾 Save & Update All My Information
+              </button>
+            </form>
+          </div>
+
+          <!-- Donation History Table -->
+          <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem;">📜 Verified Donation Records</h4>
+          <div class="table-container" style="margin-bottom: 1.5rem;">
+            <table class="custom-table" style="font-size: 0.8rem;">
+              <thead>
+                <tr>
+                  <th>Record ID</th>
+                  <th>Hospital</th>
+                  <th>Date</th>
+                  <th>Units</th>
+                </tr>
+              </thead>
+              <tbody id="dash-history-body">
+                <!-- Populated via app.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Delete Account Action -->
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1rem;">
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Want to remove your donor information?</span>
+            <button class="btn btn-sm btn-outline" style="color: #f87171; border-color: rgba(239,68,68,0.4);" onclick="deleteDonorAccount()">
+              🗑️ Delete Donor ID
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: ADMIN CONTROL PORTAL ==================== -->
+    <section id="tab-admin" class="tab-panel">
+      <!-- Admin Login Gate -->
+      <div id="admin-login-card" class="card" style="max-width: 460px; margin: 2rem auto;">
+        <div class="card-header">
+          <div>
+            <div class="card-title">🔒 Administrator Authentication</div>
+            <div class="card-subtitle">Restricted to Heal Hub Operations Personnel</div>
+          </div>
+          <span class="badge badge-emergency">AUTHORIZED ONLY</span>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+          Enter the Admin credentials configured for this deployment to unlock the Donors Directory, Requests History, Live Emergency Monitor, and Dispatch Engine.
+        </p>
+        <form id="admin-login-form">
+          <div class="form-group">
+            <label class="form-label" for="admin-id-input">Admin ID *</label>
+            <input type="text" id="admin-id-input" class="form-control" placeholder="Admin ID" autocomplete="username" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-pass-input">Password *</label>
+            <input type="password" id="admin-pass-input" class="form-control" placeholder="••••" autocomplete="current-password" required>
+          </div>
+          <div id="admin-login-error" style="display: none; color: #f87171; font-size: 0.85rem; margin-bottom: 0.75rem;"></div>
+          <button type="submit" class="btn btn-primary btn-block">
+            🔐 Unlock Admin Console
+          </button>
+        </form>
+      </div>
+
+      <!-- Authenticated Admin Control Center -->
+      <div id="admin-dashboard-view" style="display: none;">
+        <!-- Admin Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(17, 24, 39, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem 1.5rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="font-size: 1.5rem;">🛡️</div>
+            <div>
+              <div style="font-weight: 700; font-size: 1.05rem;">Administrator Control Console <span class="badge badge-success" style="margin-left: 8px;">Active</span></div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">Centralized governance for Donors Directory, Emergency History, Live Monitor & Outbox Logs</div>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-outline" style="border-color: #ef4444; color: #f87171;" onclick="adminLogout()">
+            🚪 Admin Logout
+          </button>
+        </div>
+
+        <!-- Admin Sub Navigation Tabs -->
+        <div style="display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap;">
+          <button class="btn btn-outline admin-subtab-btn active" onclick="switchAdminSubTab('admin-panel-donors')">
+            📋 Donors Directory (8 DBs)
+          </button>
+          <button class="btn btn-outline admin-subtab-btn" onclick="switchAdminSubTab('admin-panel-history')">
+            📜 Request History Page
+          </button>
+          <button class="btn btn-outline admin-subtab-btn" onclick="switchAdminSubTab('admin-panel-monitor')">
+            📡 Live Emergency Monitor
+          </button>
+          <button class="btn btn-outline admin-subtab-btn" onclick="switchAdminSubTab('admin-panel-dispatch')">
+            ⚙️ Dispatch & Outbox Logs
+          </button>
+        </div>
+
+        <!-- Admin Sub-Panel 1: DONORS DIRECTORY -->
+        <div id="admin-panel-donors" class="admin-subtab-content">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">📋 Registered Donors Directory (8 Separate Blood Group Stores)</div>
+                <div class="card-subtitle">Showing all registered donors with sensitive PII (phone/email) masked for privacy</div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-sm btn-primary" onclick="openAdminAddDonorModal()">➕ Add New Donor</button>
+                <button class="btn btn-sm btn-outline" onclick="loadDonorsDirectory()">🔄 Refresh Directory</button>
+              </div>
+            </div>
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Donor ID</th>
+                    <th>Name</th>
+                    <th>Blood Group</th>
+                    <th>Gender</th>
+                    <th>Phone (Masked)</th>
+                    <th>City</th>
+                    <th>Recent Donation</th>
+                    <th>Availability Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="donors-directory-body">
+                  <!-- Populated via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Sub-Panel 2: REQUEST HISTORY PAGE -->
+        <div id="admin-panel-history" class="admin-subtab-content" style="display: none;">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">📜 Emergency Requests History Page</div>
+                <div class="card-subtitle">Complete ledger of all past and active hospital emergency requests</div>
+              </div>
+              <button class="btn btn-sm btn-outline" onclick="loadHospitalRequests()">🔄 Refresh</button>
+            </div>
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Request ID</th>
+                    <th>Hospital</th>
+                    <th>Blood</th>
+                    <th>Units</th>
+                    <th>Urgency</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="requests-history-body">
+                  <!-- Populated via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Sub-Panel 3: LIVE EMERGENCY MONITOR -->
+        <div id="admin-panel-monitor" class="admin-subtab-content" style="display: none;">
+          <div class="card" id="active-request-card" style="margin-bottom: 1.5rem;">
+            <div class="card-header">
+              <div>
+                <div class="card-title">📡 Live Emergency Request Monitor</div>
+                <div class="card-subtitle">Real-time tracking of matching, contacted donors, and escalations</div>
+              </div>
+              <span class="badge badge-info">AUTO REFRESH ACTIVE</span>
+            </div>
+            <div id="active-request-tracker">
+              <!-- Rendered via app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Sub-Panel 4: DISPATCH & OUTBOX LOGS -->
+        <div id="admin-panel-dispatch" class="admin-subtab-content" style="display: none;">
+          <!-- Visualizer Card -->
+          <div class="card" style="margin-bottom: 1.5rem;">
+            <div class="card-header">
+              <div class="card-title">⚙️ Algorithm & Matching Engine Visualizer</div>
+              <span class="badge badge-info">HAVERSINE & COOLDOWN</span>
+            </div>
+            <div id="dispatch-visualizer-content">
+              <!-- Populated via app.js -->
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <!-- Simulated Phone Calls Log -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">📞 Automated Phone Call Outbox (Simulated)</div>
+                  <div class="card-subtitle">Showing phone calls initiated to donors ("Phone call going")</div>
+                </div>
+                <button class="btn btn-sm btn-outline" onclick="loadTwilioLogs(true)">🔄 Refresh</button>
+              </div>
+              <div class="table-container">
+                <table class="custom-table" style="font-size: 0.8rem;">
+                  <thead>
+                    <tr>
+                      <th>Call ID</th>
+                      <th>Donor ID</th>
+                      <th>Masked Phone</th>
+                      <th>Hospital</th>
+                      <th>Blood</th>
+                      <th>Status</th>
+                      <th>Simulator</th>
+                    </tr>
+                  </thead>
+                  <tbody id="twilio-logs-body">
+                    <!-- Populated via app.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Virtual Donor Email Inbox -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">✉️ Dispatched Emergency Emails</div>
+                  <div class="card-subtitle">Sent via the configured SMTP sender</div>
+                </div>
+                <button class="btn btn-sm btn-outline" onclick="loadEmailInbox(true)">🔄 Refresh</button>
+              </div>
+              <div id="email-inbox-cards">
+                <!-- Populated via app.js -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- Modal 1: Hospital Confirm Donor ID & Complete Donation -->
+  <div id="complete-donation-modal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeCompleteDonationModal()">✕</button>
+      <div class="card-title" style="margin-bottom: 0.5rem;">🏥 Confirm Donor ID & Complete Donation</div>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+        When the donor arrives at the hospital and blood collection is complete, enter or confirm the <strong>Donor ID</strong>.
+        The system will update the donor's record, apply the 90/120 day availability lock, and mark this emergency request <strong>CLOSED</strong>.
+      </p>
+      <form id="complete-donation-form">
+        <div class="form-group">
+          <label class="form-label" for="modal-donor-id">Confirmed Donor ID *</label>
+          <input type="text" id="modal-donor-id" class="form-control" placeholder="e.g. DONOR-BPOS-4891" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modal-request-id">Emergency Request ID</label>
+          <input type="text" id="modal-request-id" class="form-control" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modal-hosp-name">Hospital Name</label>
+          <input type="text" id="modal-hosp-name" class="form-control" readonly>
+        </div>
+        <button type="submit" class="btn btn-success btn-block" style="margin-top: 1rem;">
+          ✅ Confirm Donation & Close Emergency Request
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Phone Call Audio & DTMF Simulator -->
+  <div id="twilio-simulator-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 440px; text-align: center;">
+      <button class="modal-close" onclick="closeTwilioSimulator()">✕</button>
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📱</div>
+      <div class="card-title" style="justify-content: center; margin-bottom: 0.25rem;">Automated Call Simulator</div>
+      <div style="font-size: 0.8rem; color: var(--accent-teal); margin-bottom: 1rem;">🔴 PHONE CALL GOING (Simulated Voice)</div>
+
+      <div style="background: #0b0f19; border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; font-size: 0.85rem; color: #f8fafc; text-align: left; line-height: 1.5; margin-bottom: 1.25rem;">
+        <span style="color: var(--text-secondary); font-size: 0.75rem;">Voice Announcement Script:</span><br>
+        "<span id="sim-call-script"></span>"
+      </div>
+
+      <input type="hidden" id="sim-call-req-id">
+      <input type="hidden" id="sim-call-donor-id">
+
+      <div id="sim-call-status" style="font-size: 0.85rem; margin-bottom: 1rem; min-height: 24px;"></div>
+
+      <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Interactive Phone Keypad (DTMF Response):</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem;">
+        <button class="btn btn-success" onclick="simulateKeypress('1')">
+          [ 1 ] Available
+        </button>
+        <button class="btn btn-outline" onclick="simulateKeypress('2')">
+          [ 2 ] Not Available
+        </button>
+      </div>
+
+      <button class="btn btn-sm btn-outline btn-block" onclick="closeTwilioSimulator()">
+        End Call
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal 3: Admin Add New Donor -->
+  <div id="admin-add-donor-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
+      <button class="modal-close" onclick="closeAdminAddDonorModal()">✕</button>
+      <div class="card-title" style="margin-bottom: 0.5rem;">➕ Add New Donor (Admin Console)</div>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+        Add a verified blood donor directly into the dedicated blood group database. Sensitive PII (Phone/Email) will be encrypted automatically with AES-256.
+      </p>
+      <form id="admin-add-donor-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="admin-donor-name">Full Name *</label>
+            <input type="text" id="admin-donor-name" class="form-control" placeholder="e.g. Ramesh Kumar" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-donor-bg">Blood Group *</label>
+            <select id="admin-donor-bg" class="form-control" required>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+" selected>B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="admin-donor-dob">Date of Birth *</label>
+            <input type="date" id="admin-donor-dob" class="form-control" value="1996-05-15" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-donor-gender">Gender *</label>
+            <select id="admin-donor-gender" class="form-control" required>
+              <option value="male" selected>Male (90d Cooldown)</option>
+              <option value="female">Female (120d Cooldown)</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="admin-donor-phone">Phone Number *</label>
+            <input type="tel" id="admin-donor-phone" class="form-control" placeholder="+91 98450 12345" value="+91 98450 " required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-donor-email">Email Address *</label>
+            <input type="email" id="admin-donor-email" class="form-control" placeholder="donor@example.com" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="admin-donor-city">City *</label>
+            <input type="text" id="admin-donor-city" class="form-control" value="Bangalore" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-donor-weight">Weight (kg) *</label>
+            <input type="number" id="admin-donor-weight" class="form-control" min="45" max="150" value="68" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="admin-donor-lat">Latitude (GPS)</label>
+            <input type="number" step="0.0001" id="admin-donor-lat" class="form-control" value="12.9716">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-donor-lon">Longitude (GPS)</label>
+            <input type="number" step="0.0001" id="admin-donor-lon" class="form-control" value="77.5946">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="admin-donor-recent-date">Recent Donation Date (Optional)</label>
+            <input type="date" id="admin-donor-recent-date" class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-donor-avail">Availability Status</label>
+            <select id="admin-donor-avail" class="form-control">
+              <option value="true" selected>Available</option>
+              <option value="false">Unavailable / Inactive</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="admin-add-donor-error" style="display: none; color: #f87171; font-size: 0.85rem; margin-bottom: 0.75rem;"></div>
+
+        <button type="submit" id="btn-admin-submit-donor" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+          🩸 Create Donor & Save Encrypted Record
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 4: Admin Edit Donor -->
+  <div id="admin-edit-donor-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
+      <button class="modal-close" onclick="closeAdminEditDonorModal()">✕</button>
+      <div class="card-title" style="margin-bottom: 0.5rem;">✏️ Edit Donor Details (Admin Console)</div>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+        Modify any registration information for Donor ID: <strong id="admin-edit-donor-id-display" style="color: #38bdf8; font-family: monospace;"></strong>
+      </p>
+      <form id="admin-edit-donor-form">
+        <input type="hidden" id="admin-edit-donor-id">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="admin-edit-donor-name">Full Name *</label>
+            <input type="text" id="admin-edit-donor-name" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-edit-donor-bg">Blood Group *</label>
+            <select id="admin-edit-donor-bg" class="form-control" required>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="admin-edit-donor-dob">Date of Birth *</label>
+            <input type="date" id="admin-edit-donor-dob" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-edit-donor-gender">Gender *</label>
+            <select id="admin-edit-donor-gender" class="form-control" required>
+              <option value="male">Male (90d Cooldown)</option>
+              <option value="female">Female (120d Cooldown)</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="admin-edit-donor-phone">Phone Number *</label>
+            <input type="tel" id="admin-edit-donor-phone" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-edit-donor-email">Email Address *</label>
+            <input type="email" id="admin-edit-donor-email" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="admin-edit-donor-city">City *</label>
+            <input type="text" id="admin-edit-donor-city" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-edit-donor-weight">Weight (kg) *</label>
+            <input type="number" id="admin-edit-donor-weight" class="form-control" min="45" max="150" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="admin-edit-donor-lat">Latitude</label>
+            <input type="number" step="0.0001" id="admin-edit-donor-lat" class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-edit-donor-lon">Longitude</label>
+            <input type="number" step="0.0001" id="admin-edit-donor-lon" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="admin-edit-donor-recent-date">Recent Donation Date</label>
+            <input type="date" id="admin-edit-donor-recent-date" class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-edit-donor-avail">Availability Status</label>
+            <select id="admin-edit-donor-avail" class="form-control">
+              <option value="true">Available</option>
+              <option value="false">Unavailable / Inactive</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="admin-edit-donor-notes">Notes / Remarks</label>
+          <input type="text" id="admin-edit-donor-notes" class="form-control">
+        </div>
+
+        <div id="admin-edit-donor-error" style="display: none; color: #f87171; font-size: 0.85rem; margin-bottom: 0.75rem;"></div>
+
+        <button type="submit" id="btn-admin-submit-edit-donor" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+          💾 Save All Donor Updates
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
